@@ -47,7 +47,7 @@ jobs:
           cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -S .. -B . -G Ninja
 
       - name: Build the app
-        run: ls; cmake --build . --config Release
+        run: cmake --build ./build --config Release
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
