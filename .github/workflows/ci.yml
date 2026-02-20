@@ -57,7 +57,8 @@ jobs:
       # platform specific packaging
       - name: Bundle Windows
         if: ${{ runner.os == 'Windows' }}
-        run: windeployqt --release --compiler-runtime ./bin/*.exe
+        run: windeployqt --release --compiler-runtime (ls ./bin)
+        shell: pwsh
 
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
@@ -65,7 +66,7 @@ jobs:
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
-        run: macdeployqt -dmg ./bin/*.app
+        run: macdeployqt ./bin/*.app -dmg
 
 
       - name: Upload build artifact
