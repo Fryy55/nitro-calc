@@ -50,7 +50,7 @@ jobs:
         run: cmake --build . --config Release
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@4
+        uses: actions/upload-artifact@v4
         with:
           name: qt-build-${{ matrix.config.bin-name }}
           path: ./bin/**
