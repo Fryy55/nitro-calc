@@ -66,7 +66,7 @@ jobs:
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
-        run: ls ./bin; macdeployqt ./bin/*.app -dmg; ls ./bin
+        run: macdeployqt ./bin/*.app -dmg
 
 
       - name: Upload build artifact
@@ -76,4 +76,4 @@ jobs:
           path: |
             *.zip
             *.AppImage
-            *.dmg
+            ./bin/*.dmg
