@@ -50,8 +50,29 @@ jobs:
       - name: Build the app
         run: cmake --build ./build --config Release
 
+      - name: Install linuxdeployqt
+        if: ${{ runner.os == 'Linux' }}
+        uses: miurahr/install-linuxdeployqt-action@v0
+
+      # platform specific packaging
+      - name: Bundle Windows
+        if: ${{ runner.os == 'Windows' }}
+        run: windeployqt --release --compiler-runtime ./bin/*.exe
+
+      - name: Bundle Linux
+        if: ${{ runner.os == 'Linux' }}
+        run: QT_SELECT=qt6 linuxdeployqt -appimage ./bin/*
+
+      - name: Bundle MacOS
+        if: ${{ runner.os == 'MacOS' }}
+        run: macdeployqt -dmg ./bin/*.app
+
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: qt-build-${{ matrix.config.bin-name }}
-          path: ./bin/**
+          path: |
+            *.zip
+            *.AppImage
+            *.dmg
