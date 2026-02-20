@@ -17,7 +17,7 @@ jobs:
           bin-name: windows-x64
 
         - name: Linux x64
-          os: ubuntu-latest
+          os: ubuntu-20.04
           bin-name: linux-x64
 
         - name: Linux ARM64
@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir ./build
           cd ./build
-          cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -S .. -B . -G Ninja
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -S .. -B . -G Ninja
 
       - name: Build the app
         run: cmake --build ./build --config Release
