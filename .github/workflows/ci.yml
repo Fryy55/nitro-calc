@@ -17,15 +17,15 @@ jobs:
           bin-name: windows-x64
 
         - name: Linux x64
-          os: ubuntu-latest
+          os: ubuntu-22.04
           bin-name: linux-x64
 
         - name: Linux ARM64
-          os: ubuntu-24.04-arm
+          os: ubuntu-22.04-arm
           bin-name: linux-arm64
 
         - name: macOS
-          os: macos-latest
+          os: macos-14
           bin-name: macos-arm
 
     name: ${{ matrix.config.name }}
