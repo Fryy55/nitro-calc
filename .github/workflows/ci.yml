@@ -57,7 +57,7 @@ jobs:
       # platform specific packaging
       - name: Bundle Windows
         if: ${{ runner.os == 'Windows' }}
-        run: windeployqt --release --compiler-runtime (ls ./bin)
+        run: windeployqt --release --compiler-runtime (ls ./bin); ls ./bin
         shell: pwsh
 
       - name: Bundle Linux
