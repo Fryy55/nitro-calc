@@ -7,6 +7,37 @@ on:
       - "**"
 
 jobs:
+  find-qt-ver:
+    name: Find Qt version
+    runs-on: ubuntu-latest
+    outputs:
+      qt_ver: ${{ steps.save_ver.outputs.qt_ver }}
+      qt_ver_major: ${{ steps.save_ver.outputs.qt_ver_major }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Save Qt version
+        id: save_ver
+        shell: bash
+        run: |
+          if [ -f ./.github/workflows/qt/VERSION ]; then
+            export QT_VER=$(cat ./.github/workflows/qt/VERSION)
+            export QT_VER_MAJOR=$(echo $QT_VER | grep -oE '^[0-9]+')
+
+            echo "::notice::----- Qt version: $QT_VER -----"
+            echo "::notice::----- Qt major version: $QT_VER_MAJOR -----"
+
+            echo "qt_ver=$QT_VER" >> "$GITHUB_OUTPUT"
+            echo "qt_ver_major=$QT_VER_MAJOR" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::----- Could not locate .github/workflows/qt/VERSION -----"
+            echo "::error::----- Please run the CMake configuration locally at least once."
+
+            exit 1
+          fi
+
   build:
     strategy:
       fail-fast: false
@@ -30,16 +61,21 @@ jobs:
 
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
+    needs: ['find-qt-ver']
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Read Qt version
+        run: |
+          echo '::notice::----- Qt version: ${{ needs.find-qt-ver.outputs.qt_ver }} -----'
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: 6.10.1
+          version: ${{ needs.find-qt-ver.outputs.qt_ver }}
           cache: true
-
-      - name: Checkout repo
-        uses: actions/checkout@v4
 
       - name: Configure CMake
         run: |
@@ -60,13 +96,13 @@ jobs:
         shell: pwsh
         run: |
           $PROJECT_NAME = [System.IO.Path]::GetFileNameWithoutExtension((ls ./bin))
-          echo "----- Packaging project $PROJECT_NAME -----"; echo " "
+          echo "::notice::----- Packaging project $PROJECT_NAME -----"; echo " "
           windeployqt --release --compiler-runtime ./bin/$PROJECT_NAME.exe
           Compress-Archive -Path ./bin/* -DestinationPath ./$PROJECT_NAME-windows.zip
 
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
-        run: QT_SELECT=qt6 linuxdeployqt -appimage ./bin/*
+        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt -appimage ./bin/*
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
