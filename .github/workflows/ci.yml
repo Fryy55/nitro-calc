@@ -66,7 +66,11 @@ jobs:
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
-        run: macdeployqt ./bin/*.app -dmg
+        run: |
+          cd ./bin
+          macdeployqt ./*.app -dmg
+          export DMG_OUT=$(echo ./*.dmg)
+          mv ./$DMG_OUT ../$DMG_OUT
 
 
       - name: Upload build artifact
@@ -74,6 +78,6 @@ jobs:
         with:
           name: qt-build-${{ matrix.config.bin-name }}
           path: |
-            *.zip
-            *.AppImage
-            ./bin/*.dmg
+            ./*.zip
+            ./*.AppImage
+            ./*.dmg
