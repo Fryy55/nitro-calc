@@ -60,7 +60,7 @@ jobs:
         shell: pwsh
         run: |
           $PROJECT_NAME = [System.IO.Path]::GetFileNameWithoutExtension((ls ./bin))
-          echo "----- Packaging project $PROJECT_NAME -----`n`n"
+          echo "----- Packaging project $PROJECT_NAME -----"; echo ""
           windeployqt --release --compiler-runtime ./bin/$PROJECT_NAME.exe
           Compress-Archive -Path ./bin/* -DestinationPath ./$PROJECT_NAME-windows.zip
 
