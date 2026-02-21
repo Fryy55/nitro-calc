@@ -69,7 +69,7 @@ jobs:
 
       - name: Read Qt version
         run: |
-          echo '::notice::----- Qt version: ${{ needs.find-qt-ver.outputs.qt_ver }} -----'
+          echo '----- Qt version: ${{ needs.find-qt-ver.outputs.qt_ver }} -----'
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
@@ -96,7 +96,7 @@ jobs:
         shell: pwsh
         run: |
           $PROJECT_NAME = [System.IO.Path]::GetFileNameWithoutExtension((ls ./bin))
-          echo "::notice::----- Packaging project $PROJECT_NAME -----"; echo " "
+          echo "----- Packaging project $PROJECT_NAME -----"; echo " "
           windeployqt --release --compiler-runtime ./bin/$PROJECT_NAME.exe
           Compress-Archive -Path ./bin/* -DestinationPath ./$PROJECT_NAME-windows.zip
 
