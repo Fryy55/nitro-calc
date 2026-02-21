@@ -52,7 +52,7 @@ jobs:
           bin-name: linux-x64
 
         - name: Linux ARM64
-          os: ubuntu-22.04-arm
+          os: ubuntu-24.04-arm
           bin-name: linux-arm64
 
         - name: macOS
@@ -98,7 +98,7 @@ jobs:
 
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
-        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt ./bin/* -appimage
+        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt ./bin/*
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
