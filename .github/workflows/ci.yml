@@ -98,7 +98,7 @@ jobs:
 
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
-        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt ./bin/* -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer
+        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt ./bin/* -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer,libqsqloci
 
 
       - name: Bundle MacOS
