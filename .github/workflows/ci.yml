@@ -98,7 +98,7 @@ jobs:
 
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
-        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt -appimage ./bin/*
+        run: QT_SELECT=qt${{ needs.find-qt-ver.outputs.qt_ver_major }} linuxdeployqt ./bin/* -appimage
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
