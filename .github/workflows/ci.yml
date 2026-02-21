@@ -59,8 +59,10 @@ jobs:
         if: ${{ runner.os == 'Windows' }}
         shell: pwsh
         run: |
-          windeployqt --release --compiler-runtime (ls ./bin)
-          Compress-Archive -Path ./bin/* -DestinationPath ./test.zip
+          $PROJECT_NAME = ([System.IO.Path]::GetFileNameWithoutExtension(ls ./bin))
+          echo "Packaging project $PROJECT_NAME"
+          windeployqt --release --compiler-runtime ./bin/$PROJECT_NAME.exe
+          Compress-Archive -Path ./bin/* -DestinationPath ./$PROJECT_NAME-windows.zip
 
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
