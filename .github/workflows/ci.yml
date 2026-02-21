@@ -67,10 +67,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Read Qt version
-        run: |
-          echo '----- Qt version: ${{ needs.find-qt-ver.outputs.qt_ver }} -----'
-
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
