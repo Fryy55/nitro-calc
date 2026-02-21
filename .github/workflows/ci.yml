@@ -87,7 +87,7 @@ jobs:
         run: cmake --build ./build --config Release
 
       - name: Install linuxdeployqt
-        if: ${{ runner.os == 'Linux' }}
+        if: ${{ runner.os != 'Linuxx' }}
         uses: Fryy55/install-linuxdeployqt-action@main
 
       # platform specific packaging
