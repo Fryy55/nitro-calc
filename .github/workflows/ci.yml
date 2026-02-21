@@ -116,5 +116,5 @@ jobs:
           name: qt-build-${{ matrix.config.bin-name }}
           path: |
             ./*.zip
-            /**/*.AppImage
+            ${{ github.workspace }}/**/*.AppImage
             ./*.dmg
