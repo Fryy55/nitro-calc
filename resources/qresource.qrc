@@ -1,0 +1,9 @@
+<RCC>
+  <qresource>
+    <!-- add files here with `<file>relative/path</file>` -->
+    <!-- you can use them in source with `":/relative/path"` -->
+
+
+    <file>icon.png</file>
+  </qresource>
+</RCC>
