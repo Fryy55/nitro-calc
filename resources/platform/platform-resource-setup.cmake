@@ -34,20 +34,20 @@ if (${OS_NAME} STREQUAL Windows)
 
     message(NOTICE "----- .ico generation set up -----")
 elseif (${OS_NAME} STREQUAL Linux)
-    find_program(BASH_BINARY NAMES bash REQUIRED)
-    message(NOTICE "----- bash binary found -----")
-    message(NOTICE "----- ${BASH_BINARY} -----")
-
     set(DESKTOP_NAME ${PROJECT_NAME}.desktop)
     set(DESKTOP_PATH ${GEN_PATH}/${DESKTOP_NAME})
     set(TEMPLATE_PATH ${PLATFORM_PATH}/template.desktop)
 
-    execute_process(
-        COMMAND bash -c "GEN_PATH=${GEN_PATH} TEMPLATE_PATH=${TEMPLATE_PATH} DESKTOP_PATH=${DESKTOP_PATH} BINARY_NAME=${PROJECT_NAME} ${PLATFORM_PATH}/desktop-gen.sh"
+    configure_file(
+        ${TEMPLATE_PATH}
+        ${DESKTOP_PATH}
+        @ONLY
     )
 
     message(NOTICE "----- ${DESKTOP_NAME} generated -----")
     message(NOTICE "----- ${DESKTOP_PATH} -----")
+elseif (${OS_NAME} STREQUAL macOS)
+
 else()
     message(FATAL_ERROR "----- Platform ${OS_NAME} isn't supported! -----")
 endif()

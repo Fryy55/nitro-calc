@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=PROJECT-NAME
-Exec=PROJECT-NAME
+Name=@PROJECT_NAME@
+Exec=@PROJECT_NAME@
 Icon=icon
 Categories=Utility
