@@ -21,7 +21,7 @@ if (${OS_NAME} STREQUAL Windows)
     add_custom_command(
         OUTPUT ${ICO_PATH}
         COMMAND echo "-- Generating icon.ico"
-        COMMAND ${MAGICK_BINARY} ${PNG_PATH} ${ICO_PATH}
+        COMMAND ${MAGICK_BINARY} ${PNG_PATH} -define icon:auto-resize=16,24,32,48,64,96,128,256 -compress zip ${ICO_PATH}
         COMMAND echo "-- icon.ico generated"
         COMMAND echo "-- ${ICO_PATH}"
         DEPENDS ${PNG_PATH}
