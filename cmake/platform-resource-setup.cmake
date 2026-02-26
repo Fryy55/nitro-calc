@@ -11,8 +11,7 @@ set(PLATFORM_PATH ${CMAKE_CURRENT_SOURCE_DIR}/resources/platform/${OS_NAME_LOWER
 message(STATUS "Setting up resources for ${OS_NAME} --")
 if (${OS_NAME} STREQUAL Windows)
     find_program(MAGICK_BINARY NAMES magick magick.exe REQUIRED)
-    message(STATUS "magick binary found")
-    message(STATUS "${MAGICK_BINARY}")
+    message(STATUS "magick binary found - ${MAGICK_BINARY}")
 
     set(ICO_PATH ${GEN_PATH}/icon.ico)
     target_include_directories(${PROJECT_NAME} PRIVATE ${GEN_PATH})
@@ -43,7 +42,29 @@ elseif (${OS_NAME} STREQUAL Linux)
     message(STATUS "${DESKTOP_NAME} generated")
     message(STATUS "${DESKTOP_PATH}")
 elseif (${OS_NAME} STREQUAL macOS)
+    find_program(SIPS_BINARY NAMES sips REQUIRED)
+    message(STATUS "sips binary found - ${SIPS_BINARY}")
+    find_program(ICONUTIL_BINARY NAMES iconutil REQUIRED)
+    message(STATUS "iconutil binary found - ${ICONUTIL_BINARY}")
 
+    set(ICNS_PATH ${GEN_PATH}/icon.icns)
+    set(PNG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.png)
+
+    add_custom_command(
+        OUTPUT ${ICNS_PATH}
+        COMMAND bash ${PLATFORM_PATH}/gen-icns.sh ${SIPS_BINARY} ${PNG_PATH} ${GEN_PATH} ${ICONUTIL_BINARY}
+        DEPENDS ${PNG_PATH}
+        VERBATIM
+    )
+
+    set_source_files_properties(${ICNS_PATH} PROPERTIES
+        GENERATED TRUE
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
+    set(MACOSX_BUNDLE_ICON_FILE icon.icns)
+    target_sources(${PROJECT_NAME} PRIVATE ${ICNS_PATH})
+
+    message(STATUS ".icns generation set up")
 else()
     message(FATAL_ERROR "Platform ${OS_NAME} isn't supported!")
 endif()
