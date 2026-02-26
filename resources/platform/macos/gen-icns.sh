@@ -9,8 +9,7 @@ echo "-- Generating icon.icns"
 iconset="$GEN_PATH/icon.iconset"
 
 mkdir $iconset
-echo "-- icon.iconset created"
-echo "-- $iconset"
+echo "-- icon.iconset created - $iconset"
 
 for i in 16 32 128 256 512; do
     name="icon_${i}x${i}"
@@ -27,5 +26,4 @@ $ICONUTIL_BINARY -c icns $iconset
 echo "-- Removing icon.iconset"
 rm -rf $iconset
 
-echo "-- icon.icns generated"
-echo "-- $GEN_PATH/icon.icns"
+echo "-- icon.icns generated - $GEN_PATH/icon.icns"

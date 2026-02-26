@@ -21,8 +21,7 @@ if (${OS_NAME} STREQUAL Windows)
         OUTPUT ${ICO_PATH}
         COMMAND echo "-- Generating icon.ico"
         COMMAND ${MAGICK_BINARY} ${PNG_PATH} -define icon:auto-resize=16,24,32,48,64,96,128,256 -compress zip ${ICO_PATH}
-        COMMAND echo "-- icon.ico generated"
-        COMMAND echo "-- ${ICO_PATH}"
+        COMMAND echo "-- icon.ico generated - ${ICO_PATH}"
         DEPENDS ${PNG_PATH}
         VERBATIM
     )
@@ -39,8 +38,7 @@ elseif (${OS_NAME} STREQUAL Linux)
 
     configure_file(${TEMPLATE_PATH} ${DESKTOP_PATH} @ONLY)
 
-    message(STATUS "${DESKTOP_NAME} generated")
-    message(STATUS "${DESKTOP_PATH}")
+    message(STATUS "${DESKTOP_NAME} generated - ${DESKTOP_PATH}")
 elseif (${OS_NAME} STREQUAL macOS)
     find_program(SIPS_BINARY NAMES sips REQUIRED)
     message(STATUS "sips binary found - ${SIPS_BINARY}")
