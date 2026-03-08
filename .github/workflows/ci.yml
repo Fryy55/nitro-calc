@@ -111,7 +111,7 @@ jobs:
           export GEN_PATH=../build/platform/macos
           # set up .dmg background
           cp $PLATFORM_PATH/dmg-background.png ./dmg-background@2x.png
-          magick ./dmg-background@2x.png -resize 800 ./dmg-background.png
+          sips --resampleWidth 800 ./dmg-background@2x.png -o ./dmg-background.png > /dev/null
           # copy the generated icon, json and guide
           cp $GEN_PATH/icon.icns ./$PROJECT_NAME.icns
           cp $GEN_PATH/dmg.json .
