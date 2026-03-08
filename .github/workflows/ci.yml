@@ -116,6 +116,9 @@ jobs:
           cp $GEN_PATH/icon.icns ./$PROJECT_NAME.icns
           cp $GEN_PATH/dmg.json .
           cp "$GEN_PATH/READ IF YOU HAVE PROBLEMS RUNNING" .
+          # log the structure
+          echo 'Current ./bin/ directory:'
+          ls
           # package and move to root
           export DMG_NAME=$PROJECT_NAME.dmg
           npx appdmg@0.6.6 ./dmg.json ./$DMG_NAME
