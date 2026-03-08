@@ -48,11 +48,11 @@ jobs:
           bin-name: windows-x64
 
         - name: Linux x64
-          os: ubuntu-22.04
+          os: ubuntu-24.04
           bin-name: linux-x64
 
         - name: Linux ARM64
-          os: ubuntu-22.04-arm
+          os: ubuntu-24.04-arm
           bin-name: linux-arm64
 
         - name: macOS
@@ -106,7 +106,7 @@ jobs:
           cp ../build/platform/linux/$PROJECT_NAME.desktop .
           cp ../resources/icon.png .
           # package and move to root
-          linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs
+          linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs -exclude-libs=libqsqlmimer
           linuxdeployqt ./$PROJECT_NAME -appimage
           ls
 
