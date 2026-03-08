@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv) {
 	QApplication a(argc, argv);
-	#ifndef Q_OS_MACOS
+	#ifdef Q_OS_LINUX
 		a.setWindowIcon(QIcon(":/icon.png"));
 	#endif
 
