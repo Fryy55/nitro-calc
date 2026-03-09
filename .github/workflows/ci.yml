@@ -107,8 +107,9 @@ jobs:
           cp ../resources/icon.png .
           ls
           # package and move to root
-          linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs -exclude-libs=libqsqlmimer,libqsqloci,libclntsh -unsupported-allow-new-glibc
-          linuxdeployqt ./$PROJECT_NAME -appimage -unsupported-allow-new-glibc
+          export DEPLOY_FLAGS='-exclude-libs=libqsqlmimer,libqsqloci -unsupported-allow-new-glibc'
+          linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs $DEPLOY_FLAGS
+          linuxdeployqt ./$PROJECT_NAME -appimage $DEPLOY_FLAGS
           ls
 
       - name: Bundle MacOS
