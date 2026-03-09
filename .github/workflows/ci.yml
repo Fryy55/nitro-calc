@@ -103,16 +103,13 @@ jobs:
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
         run: |
-          cd ./bin
-          export PROJECT_NAME=$(ls)
-          readelf -d ./$PROJECT_NAME | grep path
-          # create ./deploy and copy the binary, the .desktop and the icon there
-          cd ..
-          mkdir ./awawa
-          cp ./bin/$PROJECT_NAME ./awawa/$PROJECT_NAME
-          cd ./awawa
-          cp ../build/platform/linux/$PROJECT_NAME.desktop .
-          cp ../resources/icon.png .
+          export PROJECT_NAME=$(ls ./bin)
+          export PROJECT_ROOT=$(pwd)
+          # copy the binary, the .desktop and the icon to the temp dir
+          cd $(mktemp -d)
+          cp $PROJECT_ROOT/bin/$PROJECT_NAME .
+          cp $PROJECT_ROOT/build/platform/linux/$PROJECT_NAME.desktop .
+          cp $PROJECT_ROOT/resources/icon.png .
           ls
           # package and move to root
           linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer
