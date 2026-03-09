@@ -110,13 +110,10 @@ jobs:
           cp $PROJECT_ROOT/bin/$PROJECT_NAME .
           cp $PROJECT_ROOT/build/platform/linux/$PROJECT_NAME.desktop .
           cp $PROJECT_ROOT/resources/icon.png .
-          ls
           # package and move to root
           linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs -unsupported-allow-new-glibc -exclude-libs=libqsqlmimer
-          echo 'halfway there'
-          ls
           linuxdeployqt ./$PROJECT_NAME -appimage -unsupported-allow-new-glibc
-          ls
+          mv ./*.AppImage $PROJECT_ROOT/
 
       - name: Bundle MacOS
         if: ${{ runner.os == 'MacOS' }}
