@@ -105,6 +105,7 @@ jobs:
         run: |
           cd ./bin
           export PROJECT_NAME=$(ls)
+          readelf -d ./$PROJECT_NAME | grep path
           # create ./deploy and copy the binary, the .desktop and the icon there
           cd ..
           mkdir ./awawa
