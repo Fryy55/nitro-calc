@@ -107,9 +107,9 @@ jobs:
           export PROJECT_NAME=$(ls)
           # create ./deploy and copy the binary, the .desktop and the icon there
           cd ..
-          mkdir ./deploy
-          cp ./bin/$PROJECT_NAME ./deploy/$PROJECT_NAME
-          cd ./deploy
+          mkdir ./awawa
+          cp ./bin/$PROJECT_NAME ./awawa/$PROJECT_NAME
+          cd ./awawa
           cp ../build/platform/linux/$PROJECT_NAME.desktop .
           cp ../resources/icon.png .
           ls
