@@ -107,8 +107,8 @@ jobs:
           ls
           # package and move to root
           export DEPLOY_FLAGS='-exclude-libs=libqsqlmimer,libqsqloci -unsupported-allow-new-glibc'
-          linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs# $DEPLOY_FLAGS
-          linuxdeployqt ./$PROJECT_NAME -appimage# $DEPLOY_FLAGS
+          linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs #$DEPLOY_FLAGS
+          linuxdeployqt ./$PROJECT_NAME -appimage #$DEPLOY_FLAGS
           ls
 
       - name: Bundle MacOS
