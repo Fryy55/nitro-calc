@@ -86,6 +86,11 @@ jobs:
         if: ${{ runner.os == 'Linux' }}
         uses: Fryy55/install-linuxdeployqt-action@main
 
+      - name: Install Oracle Instant Client
+        if: ${{ runner.os == 'Linux' }}
+        id: h-real
+        uses: iamazeem/setup-oracle-instant-client-action@v2
+
 
       # platform specific packaging
       - name: Bundle Windows
@@ -99,6 +104,7 @@ jobs:
       - name: Bundle Linux
         if: ${{ runner.os == 'Linux' }}
         run: |
+          echo '${{ steps.h-real.outputs.install-path }}'
           cd ./bin
           export PROJECT_NAME=$(ls)
           # copy the .desktop and the icon to ./bin
@@ -108,6 +114,8 @@ jobs:
           # package and move to root
           export DEPLOY_FLAGS='-unsupported-allow-new-glibc'
           linuxdeployqt ./$PROJECT_NAME -bundle-non-qt-libs $DEPLOY_FLAGS
+          echo 'halfway there'
+          ls
           linuxdeployqt ./$PROJECT_NAME -appimage $DEPLOY_FLAGS
           ls
 
