@@ -1,6 +1,6 @@
 #include <QApplication>
-#include <QMainWindow>
 #include <QtSystemDetection>
+#include <QMainWindow>
 
 
 int main(int argc, char** argv) {
@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 	#ifdef Q_OS_LINUX
 		a.setWindowIcon(QIcon(":/icon.png"));
 	#endif
-	a.setApplicationDisplayName("Template app");
+	a.setApplicationDisplayName("Template App");
 
 	QMainWindow w{};
 	w.show();

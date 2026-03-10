@@ -4,6 +4,7 @@ A template for Qt development with CMake
 # Setup
 Once cloned, customize the template by:
 - Changing the project name from `Template` to something else in `CMakeLists.txt`
+- Changing the display name of your app in `src/main.cpp`
 - Customizing the app icon at `resources/icon.png` (**see `Caution` below**)
 - Changing this `README.md` to reflect your project
 
