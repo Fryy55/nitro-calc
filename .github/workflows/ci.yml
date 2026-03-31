@@ -1,0 +1,56 @@
+name: Build Qt App
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  find-qt-ver:
+    name: Find Qt version
+    runs-on: ubuntu-latest
+    outputs:
+      qt_ver: ${{ steps.find-qt-ver.outputs.qt-ver }}
+
+    steps:
+      - name: Find Qt version
+        id: find-qt-ver
+        uses: Fryy55/cavansite/actions/find-qt-version@main
+
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+          shell: pwsh
+          bin-name: windows-x64
+
+        - name: Linux x64
+          os: ubuntu-24.04
+          shell: bash
+          bin-name: linux-x64
+
+        - name: Linux ARM64
+          os: ubuntu-24.04-arm
+          shell: bash
+          bin-name: linux-arm64
+
+        - name: macOS
+          os: macos-14
+          shell: bash
+          bin-name: macos-arm
+
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    needs: ['find-qt-ver']
+
+    steps:
+      - name: Build the app
+        uses: Fryy55/cavansite/actions/build-and-package@main
+        with:
+          qt-ver: ${{ needs.find-qt-ver.outputs.qt_ver }}
+          shell: ${{ matrix.config.shell }}
+          bin-name: ${{ matrix.config.bin-name }}

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=@PROJECT_NAME@
+Exec=@PROJECT_NAME@
+Icon=icon
+Categories=Utility
