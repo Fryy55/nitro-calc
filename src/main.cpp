@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 	#ifdef Q_OS_LINUX
 		a.setWindowIcon(QIcon(":/icon.png"));
 	#endif
-	a.setApplicationDisplayName("Template App");
+	a.setApplicationDisplayName("Nitro Calc");
 
 	QMainWindow w{};
 	w.show();
